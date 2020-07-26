@@ -1,0 +1,86 @@
+; Top Design: "P1_lib:P1_bias_tee:schematic"
+; Netlisted using Hierarchy Policy: "Standard"
+
+Options ResourceUsage=yes UseNutmegFormat=no EnableOptim=no TopDesignName="P1_lib:P1_bias_tee:schematic" DcopOutputNodeVoltages=yes DcopOutputPinCurrents=yes DcopOutputAllSweepPoints=no DcopOutputDcopType=0
+; Library Name: P1_lib
+; Cell Name: Bias_tee
+; View Name: schematic
+define Bias_tee ( RF  DC  "RF+DC" ) 
+;parameters 
+C:C1  "RF+DC" RF C=68 pF tune{ 2.2 pF to 150 pF by 1 pF } 
+L:L1  DC "RF+DC" L=6.8 nH tune{ 6.8 nH to 82 nH by 1 nH } Noise=yes  
+end Bias_tee
+
+; Library Name: P1_lib
+; Cell Name: Bias_tee4
+; View Name: schematic
+define Bias_tee4 ( RF  DC  "RF+DC" ) 
+;parameters 
+L:L1  DC "RF+DC" L=6.8 nH tune{ 6.8 nH to 82 nH by 1 nH } Noise=yes  
+C:C1  "RF+DC" RF C=2200 pF tune{ 50 pF to 47000 pF by 10 pF } 
+end Bias_tee4
+
+; Library Name: P1_lib
+; Cell Name: load_symbol1
+; View Name: schematic
+define load_symbol1 ( P1  P2 ) 
+;parameters 
+MLOC2:TL2  P2 Subst="MSub2" W=1.5 mm L=4.9 cm Wall2=1.0E+30 mil Mod=1 
+MLIN2:TL4  P1 N__2 Subst="MSub2" W=1.5 mm L=3.3 cm Wall1=1.0E+30 mil Wall2=1.0E+30 mil Mod=1 
+L:L2  N__2 P2 L=33 nH Noise=yes  
+end load_symbol1
+
+; Library Name: P1_lib
+; Cell Name: source_symbol1
+; View Name: schematic
+define source_symbol1 ( P1  P2 ) 
+;parameters 
+MLOC2:TL1  P1 Subst="MSub2" W=1.5 mm L=5.9 cm Wall1=1.0E+30 mil Wall2=1.0E+30 mil Mod=1 
+MLIN2:TL3  P1 N__2 Subst="MSub2" W=1.5 mm L=1.5 cm Wall1=1.0E+30 mil Wall2=1.0E+30 mil Mod=1 
+L:L1  N__2 P2 L=33 nH Noise=yes  
+end source_symbol1
+
+Port:Term1  N__11 0 Num=1 Z=50 Ohm Noise=yes 
+#uselib "ckt" , "S2P"
+S2P:SNP1  N__10 N__20 0 File="C:\Users\SHEETAL\Documents\6thSem\Solid_State_Microwave\AFIC901N_DRIVER_SP.s2p" Type="touchstone" InterpMode="linear" InterpDom="" ExtrapMode="constant" Temp=27.0 CheckPassivity=0 
+Port:Term2  N__17 0 Num=2 Z=50 Ohm Noise=yes 
+S_Param:SP1 CalcS=yes CalcY=no CalcZ=no GroupDelayAperture=1e-4 FreqConversion=no FreqConversionPort=1 StatusLevel=2 CalcNoise=no SortNoise=0 BandwidthForNoise=1.0 Hz DevOpPtLevel=0 \
+SweepVar="freq" SweepPlan="SP1_stim" OutputPlan="SP1_Output" 
+
+SweepPlan: SP1_stim Start=0 MGHz Stop=1 GHz Step=0.01 GHz 
+
+OutputPlan:SP1_Output \
+      Type="Output" \
+      UseEquationNestLevel=yes \
+      EquationNestLevel=2 \
+      UseSavedEquationNestLevel=yes \
+      SavedEquationNestLevel=2
+
+#load "python","LinearCollapse"
+Component Module="LinearCollapse" Type="ModelExtractor" NetworkRepresentation=2
+aele MaxGain1=max_gain(S);
+aele StabFact1=stab_fact(S);
+aele mag_delta=mag(S11*S22-S12*S21);
+aele L_StabCircle1=l_stab_circle(S,51);
+aele S_StabCircle1=s_stab_circle(S,51);
+aele GpCircle1=gp_circle(S,,101,10);
+aele GsCircle1=gs_circle(S,6.49,101);
+#uselib "ckt" , "S2P"
+S2P:SNP2  N__2 N__1 0 File="C:\Users\SHEETAL\Documents\6thSem\Solid_State_Microwave\AFIC901N_FINAL_SP.s2p" Type="touchstone" InterpMode="linear" InterpDom="" ExtrapMode="constant" Temp=27.0 CheckPassivity=0 
+aele GlCircle1=gl_circle(S,3.36,201);
+model MSub2 MSUB H=0.8 mm Er=4.4 Mur=1 Cond=59600000 Hu=3.93701e+34 mil T=0.05 mm TanD=0.02 Rough=0 mil DielectricLossModel=1 FreqForEpsrTanD=1.0 GHz LowFreqForTanD=1.0 kHz HighFreqForTanD=1.0 THz RoughnessModel=2 
+Bias_tee:X2  N__6 N__9 N__10 
+C:C1  N__8 N__14 C=4700 pF tune{ 0.5 pF to 140000 pF by 10 pF } 
+Bias_tee:X4  N__14 N__15 N__2 
+Bias_tee:X5  N__4 N__5 N__1 
+load_symbol1:X6  N__4 N__17 
+R:R1  N__5 N__18 R=100 Ohm tune{ 25 Ohm to 1000 Ohm by 5 Ohm } Noise=yes 
+V_Source:SRC1  N__18 0 Type="V_DC" Vdc=7.5 V SaveCurrent=1 
+R:R2  N__19 N__15 R=100 Ohm tune{ 25 Ohm to 1000 Ohm by 5 Ohm } Noise=yes 
+V_Source:SRC2  N__19 0 Type="V_DC" Vdc=7.5 V SaveCurrent=1 
+V_Source:SRC3  N__16 0 Type="V_DC" Vdc=7.5 V SaveCurrent=1 
+R:R3  N__21 N__16 R=1000 Ohm tune{ 25 Ohm to 5000 Ohm by 5 Ohm } Noise=yes 
+V_Source:SRC4  N__7 0 Type="V_DC" Vdc=7.5 V SaveCurrent=1 
+R:R4  N__7 N__9 R=10000 Ohm tune{ 25 Ohm to 10000 Ohm by 10 Ohm } Noise=yes 
+source_symbol1:X7  N__11 N__6 
+Bias_tee4:X8  N__8 N__21 N__20 

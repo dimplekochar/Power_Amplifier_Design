@@ -1,0 +1,11 @@
+<!DOCTYPE SaveWorkspaceState>
+<SaveWorkspaceState>
+    <Windows>
+        <DDS name="P1_output.dds"/>
+        <DDS name="P1_driver.dds"/>
+        <DDS name="P1_test_final.dds"/>
+        <DDS name="P1_test_check.dds"/>
+        <DDS name="P1_final_test.dds"/>
+    </Windows>
+    <MainWindowTab tab="1"/>
+</SaveWorkspaceState>

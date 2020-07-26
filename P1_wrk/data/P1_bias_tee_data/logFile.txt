@@ -1,0 +1,25 @@
+
+hpeesofsim (*) 490.shp Nov 12 2018, MINT version 4
+    (64-bit windows built: Tue Nov 13, 2018 02:20:54 +0000)
+
+Warning detected by hpeesofsim in topology check during circuit set up.
+    Number of nodes with no DC path to ground (topology corrected): 2
+
+
+SP SP1[1] <P1_lib:P1_bias_tee:schematic>   freq=(0 Hz->1 GHz)
+Warning detected by hpeesofsim during SP analysis `SP1'.
+    Data in the Touchstone file `C:/Users/SHEETAL/Documents/6thSem/Solid_State_Microwave/AFIC901N_DRIVER_SP.s2p'
+    does not cover the requested value of `freq'.
+    Therefore, the required data was obtained by extrapolation.
+Warning detected by hpeesofsim during SP analysis `SP1'.
+    Data in the Touchstone file `C:/Users/SHEETAL/Documents/6thSem/Solid_State_Microwave/AFIC901N_FINAL_SP.s2p'
+    does not cover the requested value of `freq'.
+    Therefore, the required data was obtained by extrapolation.
+
+Warning detected by hpeesofsim during circuit set up.
+    Evaluation failed for ` GpCircle1=gp_circle(S,,101,10)':  "GpCircle1":
+      right operand: real divide by zero
+
+Resource usage:
+  Total stopwatch time     =     5.94 seconds.
+

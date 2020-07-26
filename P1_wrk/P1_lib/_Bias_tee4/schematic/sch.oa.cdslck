@@ -1,0 +1,16 @@
+#
+# Edit Lock-Stake file. CAUTION: Please do not change.
+#
+# Information about current Edit Lock Owner.
+#
+LockStakeVersion               1.1
+LoginName                      SHEETAL
+HostName                       LAPTOP-RI9VDN5Q
+ProcessIdentifier              8964
+ProcessCreationTime_UTC        1552567223
+ProcessCreationTime_Readable   Thu Mar 14 18:10:23 2019 India Standard Time
+AppIdentifier                  OA File System Design Manager
+OSType                         win32
+ReasonForPlacingEditLock       OpenAccess edit lock
+FilePathUsedToEditLock         C:\Users\SHEETAL\P1_wrk\P1_lib\%Bias_tee4\schematic\sch.oa.cdslck
+TimeEditLocked                 Thu Mar 14 23:29:18 2019 India Standard Time

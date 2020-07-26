@@ -1,0 +1,11 @@
+
+hpeesofsim (*) 490.shp Nov 12 2018, MINT version 4
+    (64-bit windows built: Tue Nov 13, 2018 02:20:54 +0000)
+
+
+SP SP1[1] <P1_lib:P1_test_check:schematic>   freq=520 MHz
+
+
+Resource usage:
+  Total stopwatch time     =     6.53 seconds.
+
